@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+ml-service/__pycache__/
+ml-service/venv/
+
+# Environment variables - NEVER commit these
+.env
+server/.env
+client/.env
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build folders
+client/build/
+client/dist/
+
+# Logs
+*.log
+npm-debug.log*
