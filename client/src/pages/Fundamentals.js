@@ -14,17 +14,20 @@ function Fundamentals() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    setLoading(true);
-    Promise.all([getCompany(ticker), getFinancials(ticker), getRatios(ticker)])
-      .then(([compRes, finRes, ratioRes]) => {
-        setCompany(compRes.data);
-        setFinancials(finRes.data);
-        setRatios(ratioRes.data.ratios);
-      })
-      .catch(() => setError('Failed to load fundamental data'))
-      .finally(() => setLoading(false));
-  }, [ticker]);
+ useEffect(() => {
+  setLoading(true);
+  Promise.all([getCompany(ticker), getFinancials(ticker), getRatios(ticker)])
+    .then(([compRes, finRes, ratioRes]) => {
+      setCompany(compRes.data);
+      setFinancials(finRes.data);
+      setRatios(ratioRes.data.ratios);
+    })
+    .catch((err) => {
+      console.error(err);
+      setError('Failed to load fundamental data — check server is running on port 5000');
+    })
+    .finally(() => setLoading(false));
+}, [ticker]);
 
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
