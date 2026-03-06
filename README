@@ -2,13 +2,13 @@
 
 ## 🇰🇪 Overview
 
-**SokoMetrics** is a full-stack financial analytics and education platform focused on companies listed on the **Nairobi Securities Exchange (NSE)**.
+SokoMetrics is a full-stack financial analytics and education platform focused on companies listed on the **Nairobi Securities Exchange (NSE).
 
 The platform aggregates historical stock data, financial performance metrics, and macroeconomic indicators to help retail investors in Kenya make informed, data-driven decisions.
 
 SokoMetrics bridges the financial literacy gap by transforming raw market data into structured, explainable insights — built specifically for the Kenyan market.
 
----
+
 
 ## 🎯 Problem Statement
 
@@ -28,7 +28,7 @@ SokoMetrics addresses this by providing:
 * A financial education section built for beginners
 * Risk awareness guidance specific to the Kenyan market
 
----
+
 
 ## 🛠 Tech Stack
 
@@ -55,7 +55,7 @@ SokoMetrics addresses this by providing:
 * scikit-learn
 * uvicorn
 
----
+
 
 ## 📸 Screenshots
 
@@ -74,7 +74,7 @@ SokoMetrics addresses this by providing:
 ### 🧠 ML Microservice Docs
 ![ML Docs](assets/ml_docs.png)
 
----
+
 
 ## 🔐 Core Features
 
@@ -86,7 +86,7 @@ SokoMetrics addresses this by providing:
 * Live stat cards — current price, period change, period high, period low
 * Navigation to Fundamentals and Forecast for any selected company
 
----
+
 
 ### 📉 Fundamental Analysis Engine
 
@@ -98,7 +98,7 @@ Automatically computes from raw financial statement data:
 * **Dividend Yield** — Income return on investment
 * Annual financials table — Revenue, Net Income, Total Debt, EPS year by year
 
----
+
 
 ### 🔮 Price Forecast Module
 
@@ -109,22 +109,21 @@ Automatically computes from raw financial statement data:
 * Forecast table showing predicted price per business day
 * Persistent educational disclaimer — SokoMetrics does not provide financial advice
 
----
 
 ### 🎓 Financial Education Section
 
 Four dedicated tabs:
 
-* **Key Metrics** — plain English explanation of 8 core financial ratios
-* **Risk Guide** — Low / Medium / High risk explained with NSE examples, plus macroeconomic factors affecting NSE prices
-* **NSE Tips** — 6 practical tips for Kenyan beginner investors + beginner checklist
-* **Glossary** — 20 searchable financial terms with category filter, definitions and real NSE examples
+* Key Metrics — plain English explanation of 8 core financial ratios
+* Risk Guide — Low / Medium / High risk explained with NSE examples, plus macroeconomic factors affecting NSE prices
+* NSE Tips— 6 practical tips for Kenyan beginner investors + beginner checklist
+* Glossary — 20 searchable financial terms with category filter, definitions and real NSE examples
 
----
+
 
 ## 🧠 System Architecture
 
-```
+
 User opens browser
         ↓
 React Frontend (port 3000)
@@ -134,9 +133,9 @@ Node.js + Express Backend (port 5000)
    MariaDB Database      Python ML Service (port 8000)
                               ↓
                         ARIMA Forecast Response
-```
 
-SokoMetrics follows a **3-tier microservice architecture**:
+
+SokoMetrics follows a 3-tier microservice architecture:
 
 * The React frontend handles all UI rendering and user interaction
 * The Express backend manages all data access, business logic and ratio computation
@@ -144,7 +143,7 @@ SokoMetrics follows a **3-tier microservice architecture**:
 * The Python FastAPI service runs independently and handles all forecasting logic
 * Node.js calls the Python service via HTTP — the frontend never calls Python directly
 
----
+
 
 ## 🗄️ Database Schema
 
@@ -157,7 +156,7 @@ SokoMetrics follows a **3-tier microservice architecture**:
 | `macro_indicators` | Kenya macroeconomic data — CBR, inflation, GDP |
 | `glossary` | Financial education terms with definitions and examples |
 
----
+
 
 ## 📡 API Endpoints
 
@@ -173,7 +172,7 @@ SokoMetrics follows a **3-tier microservice architecture**:
 | GET | `/api/education/glossary` | Full glossary |
 | GET | `/api/education/glossary/:term` | Single glossary term |
 
----
+
 
 ## 🚀 Getting Started
 
@@ -200,7 +199,7 @@ Then import the schema from `database/schema.sql`
 ```bash
 cd server
 npm install
-```
+
 
 Create a `.env` file in the `server/` folder:
 ```env
@@ -210,12 +209,12 @@ DB_USER=root
 DB_PASSWORD=your_password
 DB_NAME=sokometrics
 PORT=5000
-```
+
 
 Start the server:
 ```bash
 node server.js
-```
+
 
 ### 4. Set up the ML microservice
 ```bash
@@ -224,25 +223,24 @@ python -m venv venv
 venv\Scripts\activate        # Windows
 pip install -r requirements.txt
 python -m uvicorn main:app --reload --port 8000
-```
+
 
 ### 5. Set up the frontend
 ```bash
 cd client
 npm install
 npm start
-```
+
 
 ### 6. Open the app
 ```
 http://localhost:3000
 ```
 
----
 
 ## 📁 Project Structure
 
-```
+
 SokoMetrics/
 │
 ├── server/
@@ -285,9 +283,7 @@ SokoMetrics/
 │   └── requirements.txt
 │
 └── .gitignore
-```
 
----
 
 ## 🧠 What This Project Demonstrates
 
@@ -303,7 +299,7 @@ SokoMetrics/
 | Domain knowledge | Financial ratios, forecasting, risk scoring |
 | Social impact | Financial literacy platform for Kenyan retail investors |
 
----
+
 
 ## ⚠️ Ethical Disclaimer
 
@@ -319,7 +315,7 @@ All forecasts are probabilistic and subject to uncertainty due to:
 
 Always consult a **CMA-licensed financial advisor** before making investment decisions.
 
----
+
 
 ## 🚀 Future Roadmap
 
@@ -334,10 +330,10 @@ Always consult a **CMA-licensed financial advisor** before making investment dec
 * Community investment pools — group virtual portfolios
 * All 65 NSE companies with full historical data
 
----
+
 
 ## 👩‍💻 Author
 
-**Yvana** — [GitHub](https://github.com/210Evana)
+Yvana — [GitHub](https://github.com/210Evana)
 
-*Built with purpose. Designed for Kenya.*
+Built with purpose. Designed for Kenya.
