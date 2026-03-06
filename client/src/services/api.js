@@ -11,3 +11,5 @@ export const getPrices = (ticker, from, to) =>
 export const getFinancials = (ticker) => API.get(`/financials/${ticker}`);
 export const getRatios = (ticker) => API.get(`/financials/${ticker}/ratios`);
 export const getGlossary = () => API.get('/education/glossary');
+
+export default API;

@@ -31,6 +31,7 @@ app.use('/api/companies', require('./routes/companies'));
 app.use('/api/prices', require('./routes/prices'));
 app.use('/api/financials', require('./routes/financials'));
 app.use('/api/education', require('./routes/education'));
+app.use('/api/forecast', require('./routes/forecast'));
 
 // ─── 404 Handler ──────────────────────────────────────────
 app.use((req, res) => {

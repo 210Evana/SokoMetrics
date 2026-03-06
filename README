@@ -1,0 +1,343 @@
+# 🟢 SokoMetrics
+
+## 🇰🇪 Overview
+
+**SokoMetrics** is a full-stack financial analytics and education platform focused on companies listed on the **Nairobi Securities Exchange (NSE)**.
+
+The platform aggregates historical stock data, financial performance metrics, and macroeconomic indicators to help retail investors in Kenya make informed, data-driven decisions.
+
+SokoMetrics bridges the financial literacy gap by transforming raw market data into structured, explainable insights — built specifically for the Kenyan market.
+
+---
+
+## 🎯 Problem Statement
+
+Retail investors in Kenya often:
+
+* Lack access to simplified, localized financial insights
+* Rely on rumors or emotional decisions when buying stocks
+* Do not understand key financial ratios or risk metrics
+* Struggle to interpret company financial statements
+* Have no tools tailored specifically to the NSE
+
+SokoMetrics addresses this by providing:
+
+* Structured stock analytics for NSE-listed companies
+* Automated financial ratio computation
+* Short-term price forecasting using statistical models
+* A financial education section built for beginners
+* Risk awareness guidance specific to the Kenyan market
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+* React.js
+* React Router
+* Recharts
+* Axios
+* Custom CSS
+
+### Backend
+* Node.js
+* Express.js
+* MariaDB
+* mysql2
+* JWT Ready
+* RESTful API architecture
+
+### ML Microservice
+* Python 3.14
+* FastAPI
+* ARIMA (statsmodels)
+* pandas
+* scikit-learn
+* uvicorn
+
+---
+
+## 📸 Screenshots
+
+### 📊 Market Dashboard
+![Dashboard](assets/dashboard.png)
+
+### 📈 Fundamental Analysis
+![Fundamentals](assets/fundamentals.png)
+
+### 🔮 Price Forecast
+![Forecast](assets/forecast.png)
+
+### 🎓 Financial Education
+![Education](assets/education.png)
+
+### 🧠 ML Microservice Docs
+![ML Docs](assets/ml_docs.png)
+
+---
+
+## 🔐 Core Features
+
+### 📊 Market Dashboard
+
+* Company selector for all NSE-listed companies
+* Historical closing price chart with real market data
+* Daily trading volume bar chart
+* Live stat cards — current price, period change, period high, period low
+* Navigation to Fundamentals and Forecast for any selected company
+
+---
+
+### 📉 Fundamental Analysis Engine
+
+Automatically computes from raw financial statement data:
+
+* **P/E Ratio** — Price to Earnings
+* **Debt-to-Equity Ratio** — Financial leverage
+* **Net Profit Margin** — Operational efficiency
+* **Dividend Yield** — Income return on investment
+* Annual financials table — Revenue, Net Income, Total Debt, EPS year by year
+
+---
+
+### 🔮 Price Forecast Module
+
+* Powered by a **separate Python FastAPI microservice**
+* Implements **ARIMA(1,1,1)** statistical time-series model
+* Returns 14-day forward price projection
+* Includes **upper and lower confidence intervals** — never a single line
+* Forecast table showing predicted price per business day
+* Persistent educational disclaimer — SokoMetrics does not provide financial advice
+
+---
+
+### 🎓 Financial Education Section
+
+Four dedicated tabs:
+
+* **Key Metrics** — plain English explanation of 8 core financial ratios
+* **Risk Guide** — Low / Medium / High risk explained with NSE examples, plus macroeconomic factors affecting NSE prices
+* **NSE Tips** — 6 practical tips for Kenyan beginner investors + beginner checklist
+* **Glossary** — 20 searchable financial terms with category filter, definitions and real NSE examples
+
+---
+
+## 🧠 System Architecture
+
+```
+User opens browser
+        ↓
+React Frontend (port 3000)
+        ↓ Axios HTTP requests
+Node.js + Express Backend (port 5000)
+        ↓ SQL queries          ↓ HTTP POST
+   MariaDB Database      Python ML Service (port 8000)
+                              ↓
+                        ARIMA Forecast Response
+```
+
+SokoMetrics follows a **3-tier microservice architecture**:
+
+* The React frontend handles all UI rendering and user interaction
+* The Express backend manages all data access, business logic and ratio computation
+* MariaDB stores companies, prices, financials, dividends, macro indicators and glossary
+* The Python FastAPI service runs independently and handles all forecasting logic
+* Node.js calls the Python service via HTTP — the frontend never calls Python directly
+
+---
+
+## 🗄️ Database Schema
+
+| Table | Purpose |
+|---|---|
+| `companies` | NSE company profiles — ticker, name, sector, description |
+| `stock_prices` | Daily OHLCV price data per company |
+| `financials` | Annual financial statements — revenue, income, debt, EPS |
+| `dividends` | Dividend payment history per company |
+| `macro_indicators` | Kenya macroeconomic data — CBR, inflation, GDP |
+| `glossary` | Financial education terms with definitions and examples |
+
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/companies` | All NSE companies |
+| GET | `/api/companies/:ticker` | Single company profile |
+| GET | `/api/prices/:ticker` | Full price history |
+| GET | `/api/prices/:ticker?from=&to=` | Price data within date range |
+| GET | `/api/financials/:ticker` | Annual financial statements |
+| GET | `/api/financials/:ticker/ratios` | Computed financial ratios |
+| GET | `/api/forecast/:ticker` | 14-day ARIMA forecast via ML service |
+| GET | `/api/education/glossary` | Full glossary |
+| GET | `/api/education/glossary/:term` | Single glossary term |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+* Node.js v18+
+* Python 3.10+
+* MariaDB
+* Git
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/210Evana/SokoMetrics.git
+cd SokoMetrics
+```
+
+### 2. Set up the database
+Open DBeaver or any MariaDB client and run:
+```sql
+CREATE DATABASE sokometrics;
+```
+Then import the schema from `database/schema.sql`
+
+### 3. Set up the backend
+```bash
+cd server
+npm install
+```
+
+Create a `.env` file in the `server/` folder:
+```env
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=sokometrics
+PORT=5000
+```
+
+Start the server:
+```bash
+node server.js
+```
+
+### 4. Set up the ML microservice
+```bash
+cd ml-service
+python -m venv venv
+venv\Scripts\activate        # Windows
+pip install -r requirements.txt
+python -m uvicorn main:app --reload --port 8000
+```
+
+### 5. Set up the frontend
+```bash
+cd client
+npm install
+npm start
+```
+
+### 6. Open the app
+```
+http://localhost:3000
+```
+
+---
+
+## 📁 Project Structure
+
+```
+SokoMetrics/
+│
+├── server/
+│   ├── controllers/
+│   │   ├── companiesController.js
+│   │   ├── pricesController.js
+│   │   ├── financialsController.js
+│   │   ├── forecastController.js
+│   │   └── educationController.js
+│   ├── routes/
+│   │   ├── companies.js
+│   │   ├── prices.js
+│   │   ├── financials.js
+│   │   ├── forecast.js
+│   │   └── education.js
+│   ├── db/
+│   │   └── connection.js
+│   ├── .env
+│   └── server.js
+│
+├── client/
+│   └── src/
+│       ├── components/
+│       │   ├── Navbar.js
+│       │   ├── StatCard.js
+│       │   ├── LoadingSpinner.js
+│       │   └── ErrorMessage.js
+│       ├── pages/
+│       │   ├── Dashboard.js
+│       │   ├── Fundamentals.js
+│       │   ├── Forecast.js
+│       │   └── Education.js
+│       ├── services/
+│       │   └── api.js
+│       └── App.js
+│
+├── ml-service/
+│   ├── main.py
+│   ├── model.py
+│   └── requirements.txt
+│
+└── .gitignore
+```
+
+---
+
+## 🧠 What This Project Demonstrates
+
+| Skill | Where It Shows |
+|---|---|
+| Full-stack development | React + Node.js + Python all connected |
+| REST API design | Clean Express API with Routes + Controllers |
+| Relational database modeling | Normalized MariaDB schema with FK relationships |
+| Data engineering | Time-series data prep and financial ratio computation |
+| Machine learning deployment | ARIMA model served as a production microservice |
+| Microservice architecture | 3 independent services with clean boundaries |
+| Data visualization | Interactive Recharts with real NSE market data |
+| Domain knowledge | Financial ratios, forecasting, risk scoring |
+| Social impact | Financial literacy platform for Kenyan retail investors |
+
+---
+
+## ⚠️ Ethical Disclaimer
+
+SokoMetrics is an **educational and analytical platform**.
+
+It does not provide financial advice or guarantee investment outcomes.
+
+All forecasts are probabilistic and subject to uncertainty due to:
+* Macroeconomic changes
+* CBK policy shifts
+* Global market dynamics
+* Investor sentiment
+
+Always consult a **CMA-licensed financial advisor** before making investment decisions.
+
+---
+
+## 🚀 Future Roadmap
+
+* User authentication — register, login, personal dashboards
+* Portfolio simulator — virtual KES 100,000 to invest
+* Watchlist — save and track favourite companies
+* Price alerts — notify when stock hits a target price
+* News sentiment analysis — NLP on Kenyan financial headlines
+* Investment recommendation engine — AI-powered Buy/Hold/Sell signals
+* Subscription tiers — Free, Pro, Institutional
+* M-Pesa integration — Daraja API for premium subscriptions
+* Community investment pools — group virtual portfolios
+* All 65 NSE companies with full historical data
+
+---
+
+## 👩‍💻 Author
+
+**Yvana** — [GitHub](https://github.com/210Evana)
+
+*Built with purpose. Designed for Kenya.*
