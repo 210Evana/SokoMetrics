@@ -26,7 +26,7 @@ const getForecast = async (req, res) => {
     }));
 
     // Call Python ML service
-    const mlResponse = await axios.post('http://127.0.0.1:8000/forecast', {
+   const mlResponse = await axios.post('https://sokometrics-ml.onrender.com/forecast', {
       ticker: req.params.ticker.toUpperCase(),
       prices: priceData,
       days: 14
