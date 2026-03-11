@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://192.168.52.43:5000/api',
+  baseURL: 'https://sokometrics.onrender.com/api',
 });
 
 export const getCompanies = () => API.get('/companies');
